@@ -31,7 +31,8 @@ fun NavigationScreen(
                 onCardClick = { navController.navigate(NavScreen.Book.name) })
         }
         composable(NavScreen.Book.name){
-            BookScreen(modifier = Modifier)
+            BookScreen(modifier = Modifier,
+                onBackClick = {navController.navigateUp()})
         }
     }
 }

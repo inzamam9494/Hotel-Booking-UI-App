@@ -1,18 +1,31 @@
 package com.example.mytest.Screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,14 +34,26 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.mytest.R
-import com.example.mytest.ui.theme.Purple40
+import com.example.mytest.ui.theme.Blue40
+import com.example.mytest.ui.theme.PurpleGrey40
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,98 +63,285 @@ fun SearchScreen(
 ) {
 
     Scaffold(bottomBar = {
-        BottomAppBar {
-            Row {
+        BottomAppBar(
+            modifier = Modifier
+                .background(
+                    brush = Brush.verticalGradient(
+                        0f to Color.Transparent,
+                        0.2f to Color.White
+                    )
+                )
+                .clip(RoundedCornerShape(topStartPercent = 30, topEndPercent = 30))
+        ) {
+            Row(modifier = Modifier.padding(10.dp)) {
                 Icon(
-                    imageVector = Icons.Default.Home,
+                    imageVector = Icons.Outlined.Home,
+                    contentDescription = ""
+                )
+                Spacer(modifier = Modifier.weight(0.1f))
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = ""
+                )
+                Spacer(modifier = Modifier.weight(0.1f))
+                Icon(
+                    imageVector = Icons.Outlined.Map,
+                    contentDescription = ""
+                )
+                Spacer(modifier = Modifier.weight(0.1f))
+                Icon(
+                    imageVector = Icons.Outlined.AccountCircle,
                     contentDescription = ""
                 )
             }
         }
     }) {
-        Column(modifier = Modifier.padding(it)) {
+        Column(
+            modifier = Modifier
+                .padding(it)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Column(modifier = Modifier) {
+                Row(
+                    modifier = Modifier.padding(15.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column() {
+                        Text(text = "Hi, Broodeen!")
+                        Text(
+                            text = "Where are you going?",
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.headlineSmall
+                        )
+                    }
+                    Spacer(modifier = Modifier.weight(0.1f))
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .background(color = MaterialTheme.colorScheme.onPrimary),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Notifications,
+                            contentDescription = "bell icon"
+                        )
+                    }
 
-        }
-    }
+                }
 
-    Column {
+                Row(modifier = Modifier.padding(20.dp)) {
+                    OutlinedTextField(
+                        value = "",
+                        onValueChange = {},
+                        placeholder = { Text(text = "Search Your Location") },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search"
+                            )
+                        },
+                        colors = TextFieldDefaults.textFieldColors(
+                            focusedIndicatorColor = Color.White,
+                            unfocusedIndicatorColor = Color.White,
+                            unfocusedLabelColor = Color.White,
+                            containerColor = Color.White
 
-        Row {
-            Column {
-                Text(text = "Hi, Broodeen!")
-                Text(text = "Where are You")
+                        ),
+                        modifier = Modifier
+                            .border(
+                                BorderStroke(
+                                    width = 1.dp,
+                                    color = PurpleGrey40
+                                ),
+                                shape = RoundedCornerShape(20)
+                            )
+                            .weight(0.1f)
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .horizontalScroll(rememberScrollState())
+                ) {
+                    ScrollCard(text = "All")
+                    ScrollCard(text = "Beach")
+                    ScrollCard(text = "Mountain")
+                    ScrollCard(text = "Hotel")
+                    ScrollCard(text = "Restaurant")
+                }
+
+                Row(
+                    modifier = Modifier.padding(20.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Popular Beach",
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Spacer(modifier = Modifier.weight(0.1f))
+                    Text(
+                        text = "See All",
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Blue40
+                    )
+                }
+
+                Column(modifier = Modifier.padding(5.dp)) {
+                    Row() {
+                        Column {
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.pandawa,
+                                Height = 180.dp,
+                                Widht = 180.dp,
+                                text1 = "Pandawa Beach",
+                                text2 = "Bali, Hyderabad",
+                                onClickToRegister = onCardClick
+                            )
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.pandawa,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Pandawa Beach",
+                                text2 = "Bali, Hyderabad",
+                                onClickToRegister = onCardClick
+                            )
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.pandawa,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Pandawa Beach",
+                                text2 = "Bali, Hyderabad",
+                                onClickToRegister = onCardClick
+                            )
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.pandawa,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Pandawa Beach",
+                                text2 = "Bali, Hyderabad",
+                                onClickToRegister = onCardClick
+                            )
+                        }
+                        Column {
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.pandawa,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Pandawa Beach",
+                                text2 = "Bali, Hyderabad",
+                                onClickToRegister = onCardClick
+                            )
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.pandawa,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Pandawa Beach",
+                                text2 = "Bali, Hyderabad",
+                                onClickToRegister = onCardClick
+                            )
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.pandawa,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Pandawa Beach",
+                                text2 = "Bali, Hyderabad",
+                                onClickToRegister = onCardClick
+                            )
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.pandawa,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Pandawa Beach",
+                                text2 = "Bali, Hyderabad",
+                                onClickToRegister = onCardClick
+                            )
+                        }
+                    }
+                }
+
             }
-            Icon(
-                imageVector = Icons.Default.Notifications,
-                contentDescription = "bell icon"
-            )
         }
-
-        OutlinedTextField(value = "",
-            onValueChange = {},
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Search,
-                    contentDescription = "Search"
-                )
-            },
-            label = { Text(text = "Search Your Location") })
-
-        Row() {
-            ScrollCard(text = "All")
-            ScrollCard(text = "Beach")
-            ScrollCard(text = "Mountain")
-            ScrollCard(text = "Hotel")
-            ScrollCard(text = "Restaurant")
-        }
-
-        Row {
-            Text(text = "Popular Beach")
-            Spacer(modifier = Modifier.weight(0.1f))
-            Text(text = "See All")
-        }
-
-        ImageCard(
-            image = R.drawable.pandawa,
-            modifier = Modifier,
-            onClickToRegister = onCardClick
-        )
-
     }
+
 }
 
 @Composable
-fun ImageCard(
+fun ImageBoxCard(
+    modifier: Modifier,
     image: Int,
-    onClickToRegister: (Int) -> Unit,
-    modifier: Modifier
+    Height: Dp,
+    Widht: Dp,
+    text1: String,
+    text2: String,
+    onClickToRegister: (Int) -> Unit
 ) {
-    Card {
-        Box {
+    Box {
+        Box(
+            modifier = Modifier
+                .padding(5.dp)
+                .height(Height)
+                .width(Widht)
+                .clip(shape = RoundedCornerShape(20.dp))
+        ) {
             Image(
                 painter = painterResource(id = image),
-                contentDescription = "image"
+                contentDescription = "",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.size(1000.dp)
             )
-            Icon(
-                imageVector = Icons.Outlined.Favorite,
-                contentDescription = "heart"
-            )
-        }
-        ClickableText(
-            text = AnnotatedString("Pandawa Beach"),
-            onClick = onClickToRegister,
-            style = TextStyle(
-                color = Purple40
-            )
-        )
+            Row(modifier = Modifier.padding(20.dp)) {
+                Spacer(modifier = Modifier.weight(0.1f))
+                Icon(
+                    imageVector = Icons.Outlined.Favorite,
+                    contentDescription = "heart",
+                    tint = Color.White,
+                )
+            }
 
+            Column(modifier = Modifier.padding(15.dp)) {
+                Spacer(modifier = Modifier.weight(0.1f))
+                ClickableText(
+                    text = AnnotatedString(text1),
+                    onClick = onClickToRegister,
+                    style = TextStyle(
+                        color = Color.Black,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+                Row {
+                    Icon(
+                        imageVector = Icons.Default.LocationOn,
+                        contentDescription = "map icon",
+                    )
+                    Text(text = text2)
+                }
+            }
+
+        }
     }
 }
 
 @Composable
 fun ScrollCard(text: String) {
-    Card {
-        Text(text = text)
+    Card(modifier = Modifier.padding(10.dp)) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(12.dp)
+        )
+
+
     }
 }
 
