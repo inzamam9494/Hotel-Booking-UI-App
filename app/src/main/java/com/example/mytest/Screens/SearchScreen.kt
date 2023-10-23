@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -39,7 +40,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -197,72 +197,72 @@ fun SearchScreen(
                                 Height = 180.dp,
                                 Widht = 180.dp,
                                 text1 = "Pandawa Beach",
-                                text2 = "Bali, Hyderabad",
+                                text2 = "Bali, Indonesia",
                                 onClickToRegister = onCardClick
                             )
                             ImageBoxCard(
                                 modifier = Modifier,
-                                image = R.drawable.pandawa,
+                                image = R.drawable.goa_beach,
                                 Height = 250.dp,
                                 Widht = 180.dp,
-                                text1 = "Pandawa Beach",
-                                text2 = "Bali, Hyderabad",
+                                text1 = "Goa Beach",
+                                text2 = "Goa,South India",
                                 onClickToRegister = onCardClick
                             )
                             ImageBoxCard(
                                 modifier = Modifier,
-                                image = R.drawable.pandawa,
+                                image = R.drawable.navagio,
                                 Height = 250.dp,
                                 Widht = 180.dp,
-                                text1 = "Pandawa Beach",
-                                text2 = "Bali, Hyderabad",
+                                text1 = "Navagio",
+                                text2 = " Zakynthos, Greece",
                                 onClickToRegister = onCardClick
                             )
                             ImageBoxCard(
                                 modifier = Modifier,
-                                image = R.drawable.pandawa,
+                                image = R.drawable.sanur_beach,
                                 Height = 250.dp,
                                 Widht = 180.dp,
-                                text1 = "Pandawa Beach",
-                                text2 = "Bali, Hyderabad",
+                                text1 = "Sanur Beach",
+                                text2 = "Bali, Indonesia",
                                 onClickToRegister = onCardClick
                             )
                         }
                         Column {
                             ImageBoxCard(
                                 modifier = Modifier,
-                                image = R.drawable.pandawa,
+                                image = R.drawable.colva_beach,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Colva Beach",
+                                text2 = "South Gao, Margo",
+                                onClickToRegister = onCardClick
+                            )
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.siesta_beach,
+                                Height = 250.dp,
+                                Widht = 180.dp,
+                                text1 = "Siesta Beach",
+                                text2 = "Florida, United State",
+                                onClickToRegister = onCardClick
+                            )
+                            ImageBoxCard(
+                                modifier = Modifier,
+                                image = R.drawable.palolem_beach,
                                 Height = 250.dp,
                                 Widht = 180.dp,
                                 text1 = "Pandawa Beach",
-                                text2 = "Bali, Hyderabad",
+                                text2 = "Canacona, Goa",
                                 onClickToRegister = onCardClick
                             )
                             ImageBoxCard(
                                 modifier = Modifier,
                                 image = R.drawable.pandawa,
-                                Height = 250.dp,
+                                Height = 180.dp,
                                 Widht = 180.dp,
                                 text1 = "Pandawa Beach",
-                                text2 = "Bali, Hyderabad",
-                                onClickToRegister = onCardClick
-                            )
-                            ImageBoxCard(
-                                modifier = Modifier,
-                                image = R.drawable.pandawa,
-                                Height = 250.dp,
-                                Widht = 180.dp,
-                                text1 = "Pandawa Beach",
-                                text2 = "Bali, Hyderabad",
-                                onClickToRegister = onCardClick
-                            )
-                            ImageBoxCard(
-                                modifier = Modifier,
-                                image = R.drawable.pandawa,
-                                Height = 250.dp,
-                                Widht = 180.dp,
-                                text1 = "Pandawa Beach",
-                                text2 = "Bali, Hyderabad",
+                                text2 = "Bali, Indonesia",
                                 onClickToRegister = onCardClick
                             )
                         }
@@ -292,6 +292,7 @@ fun ImageBoxCard(
                 .height(Height)
                 .width(Widht)
                 .clip(shape = RoundedCornerShape(20.dp))
+
         ) {
             Image(
                 painter = painterResource(id = image),
@@ -308,23 +309,37 @@ fun ImageBoxCard(
                 )
             }
 
-            Column(modifier = Modifier.padding(15.dp)) {
-                Spacer(modifier = Modifier.weight(0.1f))
-                ClickableText(
-                    text = AnnotatedString(text1),
-                    onClick = onClickToRegister,
-                    style = TextStyle(
-                        color = Color.Black,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Bold
+            Box(
+                modifier = Modifier.background(
+                    brush = Brush.verticalGradient(
+                        0.4f to Color.Transparent,
+                        5f to Color.Black
                     )
                 )
-                Row {
-                    Icon(
-                        imageVector = Icons.Default.LocationOn,
-                        contentDescription = "map icon",
+                    .fillMaxSize()
+            ) {
+                Column(modifier = Modifier.padding(15.dp)) {
+                    Spacer(modifier = Modifier.weight(0.1f))
+                    ClickableText(
+                        text = AnnotatedString(text1),
+                        onClick = onClickToRegister,
+                        style = TextStyle(
+                            color = Color.White,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold
+                        )
                     )
-                    Text(text = text2)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.LocationOn,
+                            contentDescription = "map icon",
+                            tint = Color.White
+                        )
+                        Text(text = text2,
+                            style = MaterialTheme.typography.titleSmall,
+                            color = Color.White
+                        )
+                    }
                 }
             }
 
